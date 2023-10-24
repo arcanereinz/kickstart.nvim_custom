@@ -9,6 +9,7 @@ vim.opt.softtabstop = TAB_WIDTH
 vim.opt.tabstop = TAB_WIDTH
 
 vim.opt.expandtab = true
+vim.opt.hlsearch = true
 
 -- set to 256 supported color scheme if not in gui mode
 if vim.fn.has('gui_running') == 0 then
