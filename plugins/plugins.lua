@@ -143,11 +143,70 @@ return {
   --   },
   -- },
 
-  -- using lazy.nvim
+  -- setup top navigation
+  -- :h bufferline-configuration
   {
     'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons',
+    opts = {
+      options = {
+        indicator = {
+          icon = '▎✧ ', -- this should be omitted if indicator style is not 'icon'
+          -- icon = '▎Ɵ Ѻ ϟ Ѿ ֍ ✪ ☆  ϟឬឬឿ ', -- this should be omitted if indicator style is not 'icon'
+          style = 'icon',
+        },
+        buffer_close_icon = '󰅖',
+        modified_icon = '●',
+        close_icon = '',
+        left_trunc_marker = '',
+        right_trunc_marker = '',
+        color_icons = true,
+      },
+    },
     config = function(_, opts)
       require("bufferline").setup(opts)
     end,
-  }
+  },
+
+  -- {
+  --   "nvim-neo-tree/neo-tree.nvim",
+  --   branch = "v3.x",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+  --     "MunifTanjim/nui.nvim",
+  --     {
+  --       's1n7ax/nvim-window-picker',
+  --       version = '2.*',
+  --       config = function()
+  --           require 'window-picker'.setup({
+  --               filter_rules = {
+  --                   include_current_win = false,
+  --                   autoselect_one = true,
+  --                   -- filter using buffer options
+  --                   bo = {
+  --                       -- if the file type is one of following, the window will be ignored
+  --                       filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+  --                       -- if the buffer type is one of following, the window will be ignored
+  --                       buftype = { 'terminal', "quickfix" },
+  --                   },
+  --           },
+  --       })
+  --       end,
+  --     },
+  --   },
+  --   opts = {
+  --     source_selector = {
+  --       winbar = true,
+  --       statusline = true,
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     require("neo-tree").setup(opts)
+  --   end,
+  -- },
+
+  -- for diffing directories using with git dirdiff
+  {
+    'will133/vim-dirdiff'
+  },
 }
