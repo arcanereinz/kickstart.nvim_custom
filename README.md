@@ -9,3 +9,7 @@ require('custom.init');
 ```lua
 { import = 'custom.plugins' }
 ```
+
+### Links
+
+Effective Nerd Fonts in Multiple Terminals: https://www.youtube.com/watch?v=mQdB_kHyZn8&t=84s

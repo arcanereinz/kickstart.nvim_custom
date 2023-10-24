@@ -1,7 +1,13 @@
 vim.opt.termguicolors = false
 vim.api.nvim_set_keymap('i', '<C-G>', '<ESC>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>tn', '<cmd>tabnew<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>tc', '<cmd>tabclose<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>tn', '<cmd>tabnew<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>tc', '<cmd>tabclose<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Tab>', '<cmd>bnext<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<S-Tab>', '<cmd>bprev<CR>', { noremap = true })
+
+-- use buffers instead of tabs due to plugin: romgrk/barbar.nvim
+-- vim.api.nvim_set_keymap('n', 'gt', '<cmd>bnext<CR>', { noremap = true })
+-- vim.api.nvim_set_keymap('n', 'gT', '<cmd>bprev<CR>', { noremap = true })
 
 local TAB_WIDTH = 2
 vim.opt.shiftwidth = TAB_WIDTH

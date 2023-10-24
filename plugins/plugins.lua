@@ -3,14 +3,14 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-  -- disable due to incompatibility with vimr
+  -- @override: disable due to incompatibility with vimr
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
     enabled = false,
   },
 
-  -- turn on icons
+  -- @override: turn on icons
   {
     -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -24,17 +24,130 @@ return {
 
   -- file managing , picker etc
   {
-    "nvim-tree/nvim-tree.lua",
-    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    'nvim-tree/nvim-tree.lua',
+    cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
     init = function()
-      require("custom.core.utils").load_mappings "nvimtree"
+      require('custom.core.utils').load_mappings 'nvimtree'
     end,
-    opts = function()
-      return require "custom.plugins.configs.nvimtree"
-    end,
+    -- opts = function()
+    --   return require 'custom.plugins.configs.nvimtree'
+    -- end,
+    opts = {
+      renderer = {
+        highlight_git = true,
+        icons = {
+          glyphs = {
+            default = "󰈚",
+            symlink = "",
+            folder = {
+              default = "",
+              empty = "",
+              empty_open = "",
+              open = "",
+              symlink = "",
+              symlink_open = "",
+              arrow_open = "",
+              arrow_closed = "",
+            },
+            git = {
+              unstaged = "✗",
+              staged = "✓",
+              unmerged = "",
+              renamed = "➜",
+              untracked = "★",
+              deleted = "",
+              ignored = "◌",
+            },
+          },
+        },
+      },
+    },
     config = function(_, opts)
-      -- dofile(vim.g.base46_cache .. "nvimtree")
-      require("nvim-tree").setup(opts)
+      -- dofile(vim.g.base46_cache .. 'nvimtree')
+      require('nvim-tree').setup(opts)
     end,
   },
+
+  -- @override: add mappings
+  {
+    'numToStr/Comment.nvim',
+    keys = {
+      { 'gcc', mode = 'n', desc = 'Comment toggle current line' },
+      { 'gc', mode = { 'n', 'o' }, desc = 'Comment toggle linewise' },
+      { 'gc', mode = 'x', desc = 'Comment toggle linewise (visual)' },
+      { 'gbc', mode = 'n', desc = 'Comment toggle current block' },
+      { 'gb', mode = { 'n', 'o' }, desc = 'Comment toggle blockwise' },
+      { 'gb', mode = 'x', desc = 'Comment toggle blockwise (visual)' },
+    },
+    init = function()
+      require('custom.core.utils').load_mappings 'comment'
+    end,
+    config = function(_, opts)
+      require('Comment').setup(opts)
+    end,
+  },
+
+  -- Only load whichkey after all the gui
+  {
+    'folke/which-key.nvim',
+    keys = { '<leader>', '<c-r>', '<c-w>', '"', "'", '`', 'c', 'v', 'g' },
+    init = function()
+      require('custom.core.utils').load_mappings 'whichkey'
+    end,
+    cmd = 'WhichKey',
+    config = function(_, opts)
+      require('which-key').setup(opts)
+    end,
+  },
+
+  -- git stuff
+  {
+    "lewis6991/gitsigns.nvim",
+    ft = { "gitcommit", "diff" },
+    init = function()
+      -- load gitsigns only when a git file is opened
+      vim.api.nvim_create_autocmd({ "BufRead" }, {
+        group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
+        callback = function()
+          vim.fn.system("git -C " .. '"' .. vim.fn.expand "%:p:h" .. '"' .. " rev-parse")
+          if vim.v.shell_error == 0 then
+            vim.api.nvim_del_augroup_by_name "GitSignsLazyLoad"
+            vim.schedule(function()
+              require("lazy").load { plugins = { "gitsigns.nvim" } }
+            end)
+          end
+        end,
+      })
+    end,
+    opts = function()
+      return require("custom.plugins.configs.others").gitsigns
+    end,
+    config = function(_, opts)
+      require("gitsigns").setup(opts)
+    end,
+  },
+
+  -- @todo fix flashing
+  -- {
+  --   'romgrk/barbar.nvim',
+  --   dependencies = {
+  --     'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+  --     'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+  --   },
+  --   init = function() vim.g.barbar_auto_setup = false end,
+  --   opts = {
+  --     -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+  --     -- animation = true,
+  --     -- insert_at_start = true,
+  --     -- …etc.
+  --   },
+  -- },
+
+  -- using lazy.nvim
+  {
+    'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function(_, opts)
+      require("bufferline").setup(opts)
+    end,
+  }
 }
