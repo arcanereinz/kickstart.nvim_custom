@@ -231,4 +231,10 @@ return {
   {
     'will133/vim-dirdiff'
   },
+
+  -- allow editing of quickfix list for find and replace
+  -- @see https://www.youtube.com/watch?v=AuXZA-xCv04
+  {
+    'stefandtw/quickfix-reflector.vim'
+  },
 }

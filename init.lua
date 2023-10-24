@@ -11,6 +11,10 @@ vim.api.nvim_set_keymap('n', '<Leader>tc', '<cmd>tabclose<CR>', { noremap = true
 vim.api.nvim_set_keymap('n', '<Tab>', '<cmd>bnext<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<S-Tab>', '<cmd>bprev<CR>', { noremap = true })
 
+-- quickfix
+vim.api.nvim_set_keymap('n', ']q', '<cmd>cnfile<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '[q', '<cmd>cpfile<CR>', { noremap = true })
+
 -- copy to clipboard
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true })
 
