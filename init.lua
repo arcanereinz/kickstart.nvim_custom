@@ -34,3 +34,6 @@ if vim.fn.has('gui_running') == 0 then
   vim.cmd.colorscheme('desert')
   -- alternatively: vim.cmd [[colorscheme desert]]
 end
+
+-- load ./custom/core/mappings.lua:general
+require("custom.core.utils").load_mappings()

@@ -343,14 +343,14 @@ M.nvterm = {
     },
 
     -- new
-    ["<leader>h"] = {
+    ["<leader>tt"] = {
       function()
         require("nvterm.terminal").new "horizontal"
       end,
       "New horizontal term",
     },
 
-    ["<leader>v"] = {
+    ["<leader>tv"] = {
       function()
         require("nvterm.terminal").new "vertical"
       end,
