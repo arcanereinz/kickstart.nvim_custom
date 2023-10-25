@@ -132,12 +132,36 @@ return {
   {
     'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons',
     opts = {
+      -- colorize top buffer bar
+      highlights = function()
+        local l_buffergb_color = 233
+        return {
+          close_button_selected = {
+            ctermbg = l_buffergb_color,
+          },
+          buffer_selected = {
+            ctermbg = l_buffergb_color,
+            bold = true,
+            italic = true,
+          },
+          modified_selected = {
+            ctermbg = l_buffergb_color,
+          },
+          separator_selected = {
+            ctermbg = l_buffergb_color,
+          },
+          indicator_selected = {
+            ctermbg = l_buffergb_color,
+          },
+        }
+      end,
       options = {
         indicator = {
           icon = '▎✧ ', -- this should be omitted if indicator style is not 'icon'
           -- icon = '▎Ɵ Ѻ ϟ Ѿ ֍ ✪ ☆  ϟឬឬឿ ', -- this should be omitted if indicator style is not 'icon'
-          style = 'icon',
+          style = 'none', -- 'icon' not needed since using colors
         },
+        -- separator_style = { '', '' },
         buffer_close_icon = '󰅖',
         modified_icon = '●',
         close_icon = '',
@@ -147,6 +171,9 @@ return {
       },
     },
     config = function(_, opts)
+      -- set statusbar to use term colors
+      vim.opt.termguicolors = false
+      -- load plugin
       require("bufferline").setup(opts)
     end,
   },
@@ -200,10 +227,12 @@ return {
     'stefandtw/quickfix-reflector.vim'
   },
 
+  -- database querying
   {
     'tpope/vim-dadbod',
   },
 
+  -- database ui
   {
     'kristijanhusak/vim-dadbod-ui',
     dependencies = {
@@ -221,4 +250,17 @@ return {
       vim.g.db_ui_use_nerd_fonts = 1
     end,
   },
+
+  -- run postman like http queries for *.http files
+  {
+    "rest-nvim/rest.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
+    config = function()
+      require("rest-nvim").setup({
+        -- Skip SSL verification, useful for unknown certificates
+        skip_ssl_verification = true,
+      })
+    end
+  },
+
 }
