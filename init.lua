@@ -1,5 +1,10 @@
--- escape if key not convenient
-vim.api.nvim_set_keymap('i', '<C-G>', '<ESC>', { noremap = true })
+-- ================== --
+-- custom keybindings --
+-- ================== --
+-- escape if key not convenient (insert mode)
+vim.api.nvim_set_keymap('i', '<C-G>', '<C-\\><C-N>', { noremap = true })
+-- terminal mode for :terminal
+vim.api.nvim_set_keymap('t', '<C-G>', '<C-\\><C-N>', { noremap = true })
 
 -- tabs
 vim.api.nvim_set_keymap('n', '<Leader>tn', '<cmd>tabnew<CR>', { noremap = true })
@@ -14,7 +19,7 @@ vim.api.nvim_set_keymap('n', ']q', '<cmd>cnfile<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '[q', '<cmd>cpfile<CR>', { noremap = true })
 
 -- copy to clipboard
-vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true })
+vim.api.nvim_set_keymap('v', '<C-C>', '"+y', { noremap = true })
 
 -- vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>DBUI_ToggleResultLayout', { noremap = true })
 -- vim.api.nvim_set_keymap("n", "<Plug>DBUI_ToggleResultLayout", ":lua require('rest-nvim').run()<CR>", { noremap = true})
@@ -88,7 +93,7 @@ vim.cmd [[
 
 -- keybindings for rest.nvim
 vim.api.nvim_set_keymap('n', '<Plug>RestNvim', ':lua require("rest-nvim").run()<CR>', { noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim<CR><C-W>W<C-W>W', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim<CR>', { noremap = true })
 vim.opt.splitright = true
 
 -- ============== --

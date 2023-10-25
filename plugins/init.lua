@@ -106,6 +106,14 @@ return {
     init = function()
       require("custom.core.utils").load_mappings "nvterm"
     end,
+    opts = {
+      terminals = {
+        type_opts = {
+          horizontal = { location = "rightbelow", split_ratio = .3, },
+          vertical = { location = "rightbelow", split_ratio = .3 },
+        },
+      },
+    },
     config = function(_, opts)
       require("nvterm").setup(opts)
     end,
