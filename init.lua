@@ -21,6 +21,20 @@ vim.api.nvim_set_keymap('n', '[q', '<cmd>cpfile<CR>', { noremap = true })
 -- copy to clipboard
 vim.api.nvim_set_keymap('v', '<C-C>', '"+y', { noremap = true })
 
+-- go to next git match (remap needed)
+vim.api.nvim_set_keymap('n', ']\\', ']/', { noremap = false })
+vim.api.nvim_set_keymap('n', '[\\', '[/', { noremap = false })
+
+-- =============== --
+-- git keybindings --
+-- =============== --
+-- review got logs:
+--    ":Git log --stat" to show diff, hit "enter" on commit, ]\ to go next to file, hit "enter" on file, "dq" to close file, "ctrl-o" to go back to git file comparion
+-- diff this file and close
+--    open diff using "<Leader>gd" and close using "<Leader>tc"
+vim.api.nvim_set_keymap('n', '<Leader>gd', '<cmd>Git difftool -y<CR>', { noremap = true, desc = "Open git difftool" })
+
+
 -- vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>DBUI_ToggleResultLayout', { noremap = true })
 -- vim.api.nvim_set_keymap("n", "<Plug>DBUI_ToggleResultLayout", ":lua require('rest-nvim').run()<CR>", { noremap = true})
 
