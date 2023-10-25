@@ -271,12 +271,32 @@ return {
     end
   },
 
-  -- fix buffers for diffing
+  -- fix uneven windows during dir diffing
   {
     'kwkarlwang/bufresize.nvim',
-    enabled = false,
-    config = function()
-        require('bufresize').setup()
+    enabled = true,
+    opts = {
+      register = {
+        keys = {
+          { "n", "<leader>w<", "30<C-w><", { noremap = true, silent = true, desc = 'Shrink left window' } },
+          { "n", "<leader>w>", "30<C-w>>", { noremap = true, silent = true, desc = 'Enlarge left window' } },
+          { "n", "<leader>w+", "10<C-w>+", { noremap = true, silent = true, desc = 'Enlarge bottom window' } },
+          { "n", "<leader>w-", "10<C-w>-", { noremap = true, silent = true, desc = 'Shrink bottom window' } },
+          { "n", "<leader>w_", "<C-w>_", { noremap = true, silent = true, desc = 'Enlarge vertically (max)' } },
+          { "n", "<leader>w=", "<C-w>=", { noremap = true, silent = true, desc = 'Equalize all window' } },
+          { "n", "<leader>w|", "<C-w>|", { noremap = true, silent = true, desc = 'Enlarge horizontally (max)' } },
+          { "n", "<leader>wo", "<C-w>|<C-w>_", { noremap = true, silent = true, desc = 'Enlarge vertically and horizonally (max)' } },
+        },
+        trigger_events = { "BufWinEnter", "WinEnter" },
+      },
+      resize = {
+        keys = {},
+        trigger_events = { "VimResized" },
+        increment = 5,
+      },
+    },
+    config = function(_, opts)
+        require('bufresize').setup(opts)
     end
   },
 }
