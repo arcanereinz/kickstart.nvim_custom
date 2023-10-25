@@ -34,7 +34,6 @@ vim.api.nvim_set_keymap('n', '[\\', '[/', { noremap = false })
 --    open diff using "<Leader>gd" and close using "<Leader>tc"
 vim.api.nvim_set_keymap('n', '<Leader>gd', '<cmd>Git difftool -y<CR>', { noremap = true, desc = "Open git difftool" })
 
-
 -- vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>DBUI_ToggleResultLayout', { noremap = true })
 -- vim.api.nvim_set_keymap("n", "<Plug>DBUI_ToggleResultLayout", ":lua require('rest-nvim').run()<CR>", { noremap = true})
 
@@ -49,9 +48,11 @@ vim.api.nvim_set_keymap('n', '<Leader>gd', '<cmd>Git difftool -y<CR>', { noremap
 -- ================== --
 -- neovide neovim gui --
 -- ================== --
--- shorted cursor animation (set to 0 for disable)
 if vim.g.neovide then
+  -- shorted cursor animation (set to 0 for disable)
   vim.g.neovide_cursor_animation_length = 0.005
+  -- preserve when reopening
+  vim.g.remember_window_size = true
 end
 
 -- ===================== --
