@@ -81,8 +81,19 @@ echo 'alias dap="~/.local/share/nvim/mason/packages/js-debug-adapter/js-debug-ad
 yum install xclip
 ```
 
+### Tips and Tricks
+
+Search and replace with Telscope + cdo
+
+1. Search using telescope then after hit Ctrl-Q
+2. Then replace using cdo (note: "I" means case sensitive, "c" is confirm change)or to run one command per file use :cfdo
+```vi
+:cdo s/[searched text]/[replaced text]/gIc
+```
+
 ### Links
 
 * Effective Nerd Fonts in Multiple Terminals: https://www.youtube.com/watch?v=mQdB_kHyZn8&t=84s
 * The (almost) perfect Neovim setup for Node.js: https://www.youtube.com/watch?v=CVCBHHFXWNE
 * Mason package repository: https://mason-registry.dev/registry/list
+* Multi-file Search and Replace in Neovim: https://levelup.gitconnected.com/multi-file-search-and-replace-in-neovim-83a0a8d22e14#:~:text=Once%20you%20have%20Telescope%20installed,whatever%20you%20are%20searching%20for.&text=Once%20you%20have%20your%20results,in%20Telescope%20is%20Ctrl%2BQ.&text=Hit%20enter%20and%20you%20should,each%20replace%20in%20the%20list.
