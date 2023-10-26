@@ -156,24 +156,28 @@ return {
     opts = {
       -- colorize top buffer bar
       highlights = function()
-        local l_buffergb_color = 23 -- 23: turquoise, 233: black
+        local l_bufferbg_color = 23 -- 23: turquoise, 233: black
         return {
+          duplicate_selected = {
+            ctermbg = l_bufferbg_color,
+            italic = true,
+          },
           close_button_selected = {
-            ctermbg = l_buffergb_color,
+            ctermbg = l_bufferbg_color,
           },
           buffer_selected = {
-            ctermbg = l_buffergb_color,
+            ctermbg = l_bufferbg_color,
             bold = true,
             italic = true,
           },
           modified_selected = {
-            ctermbg = l_buffergb_color,
+            ctermbg = l_bufferbg_color,
           },
           separator_selected = {
-            ctermbg = l_buffergb_color,
+            ctermbg = l_bufferbg_color,
           },
           indicator_selected = {
-            ctermbg = l_buffergb_color,
+            ctermbg = l_bufferbg_color,
           },
         }
       end,
