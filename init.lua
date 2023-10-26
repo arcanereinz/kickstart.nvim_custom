@@ -1,6 +1,6 @@
--- ================== --
--- custom keybindings --
--- ================== --
+-- ==================
+-- custom keybindings
+-- ==================
 -- escape if key not convenient (insert mode)
 vim.api.nvim_set_keymap('i', '<C-G>', '<C-\\><C-N>', { noremap = true })
 -- terminal mode for :terminal
@@ -25,9 +25,13 @@ vim.api.nvim_set_keymap('v', '<C-C>', '"+y', { noremap = true })
 vim.api.nvim_set_keymap('n', ']\\', ']/', { noremap = false })
 vim.api.nvim_set_keymap('n', '[\\', '[/', { noremap = false })
 
--- =============== --
--- git keybindings --
--- =============== --
+-- <tab> and <c-i> same so remapping <c-i> to <m-o>
+-- also alt+shift works but ctrl+shift does not work so must lowercase o
+vim.api.nvim_set_keymap('n', '<M-o>', '<C-I>', { noremap = true }) -- noremap needed
+
+-- ===============
+-- git keybindings
+-- ===============
 -- review got logs:
 --    ":Git log --stat" to show diff, hit "enter" on commit, ]\ to go next to file, hit "enter" on file, "dq" to close file, "ctrl-o" to go back to git file comparion
 -- diff this file and close
@@ -45,9 +49,9 @@ vim.api.nvim_set_keymap('n', '<Leader>gd', '<cmd>Git difftool -y<CR>', { noremap
 -- vim.api.nvim_set_keymap('n', '<Leader>S', '<Plug>(DBUI_ExecuteQuery)', { noremap = true })
 -- vim.api.nvim_set_keymap('v', '<Leader>S', '<Plug>(DBUI_ExecuteQuery)', { noremap = true })
 
--- ================== --
--- neovide neovim gui --
--- ================== --
+-- ==================
+-- neovide neovim gui
+-- ==================
 if vim.g.neovide then
   -- shorted cursor animation (set to 0 for disable)
   vim.g.neovide_cursor_animation_length = 0.005
@@ -55,9 +59,9 @@ if vim.g.neovide then
   vim.g.remember_window_size = true
 end
 
--- ===================== --
--- vim-dadbod-completion --
--- ===================== --
+-- =====================
+-- vim-dadbod-completion
+-- =====================
 -- used by kristijanhusak/vim-dadbod-completion for word completion
 vim.cmd [[
   autocmd FileType sql,mysql,plsql lua require('cmp').setup.buffer({ sources = {{ name = 'vim-dadbod-completion' }} })
@@ -77,7 +81,7 @@ vim.cmd [[
 -- kristijanhusak/vim-dadbod-ui: auto expand for DBUI
 -- vim.cmd [[
 --   autocmd User DBUIOpened call s:open_db()
--- 
+--
 --   function! s:open_db()
 --     "Find db.
 --     call search('dev')
@@ -90,30 +94,11 @@ vim.cmd [[
 --   endfunction
 -- ]]
 
--- ========= --
--- rest.nvim --
--- ========= --
--- rest.nvim key bindings [NOTE: rename file extension to .http for this to work]
--- https://www.reddit.com/r/neovim/comments/n6cdnl/my_first_neovim_plugin_restnvim/
--- NOTE: add below content to file: ~/.config/nvim/ftdetect/http.vim
-
--- map <leader>rr to http rest request
--- autocmd BufRead,BufNewFile *.http		set filetype=http
--- vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
---   pattern = {"*.http"},
---   callback = function(_) -- ev
---     vim.opt.filetype = 'http'
---   end
--- })
-
--- keybindings for rest.nvim
-vim.api.nvim_set_keymap('n', '<Plug>RestNvim', ':lua require("rest-nvim").run()<CR>', { noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim<CR>', { noremap = true })
 vim.opt.splitright = true
 
--- ============== --
--- customizations --
--- ============== --
+-- ==============
+-- customizations
+-- ==============
 
 -- able to use macOS terminal with 256 colors
 vim.opt.termguicolors = false

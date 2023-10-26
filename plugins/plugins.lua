@@ -29,10 +29,24 @@ return {
     init = function()
       require('custom.core.utils').load_mappings 'nvimtree'
     end,
+    keys = {
+      -- toggle
+      { "<leader>o", "<cmd>NvimTreeFindFileToggle<CR>", desc = "toggle NvimTree" },
+      -- focus
+      { "<leader>e", "<cmd>NvimTreeFocus<CR>", desc = "Focus nvimtree" },
+    },
     -- opts = function()
     --   return require 'custom.plugins.configs.nvimtree'
     -- end,
     opts = {
+      -- view = {
+      --   -- auto
+      --   mappings = {
+      --     list = {
+      --       { key = "<C-t>", action = "" }, -- removes the default mapping; already have <C-t> mapped to toggle nvim-tree
+      --     },
+      --   },
+      -- },
       renderer = {
         highlight_git = true,
         icons = {
@@ -142,7 +156,7 @@ return {
     opts = {
       -- colorize top buffer bar
       highlights = function()
-        local l_buffergb_color = 233
+        local l_buffergb_color = 23 -- 23: turquoise, 233: black
         return {
           close_button_selected = {
             ctermbg = l_buffergb_color,
@@ -263,11 +277,32 @@ return {
   {
     "rest-nvim/rest.nvim",
     dependencies = "nvim-lua/plenary.nvim",
-    config = function()
-      require("rest-nvim").setup({
-        -- Skip SSL verification, useful for unknown certificates
-        skip_ssl_verification = true,
-      })
+    opts = {
+      -- Skip SSL verification, useful for unknown certificates
+      skip_ssl_verification = true,
+    },
+    config = function(_, opts)
+      require("rest-nvim").setup(opts)
+
+      -- keybindings for rest.nvim
+      vim.api.nvim_set_keymap('n', '<Plug>RestNvim', ':lua require("rest-nvim").run()<CR>', { noremap = true})
+      vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim<CR>', { noremap = true })
+
+      -- =====
+      -- NOTES
+      -- =====
+      -- rest.nvim key bindings [NOTE: rename file extension to .http for this to work]
+      -- https://www.reddit.com/r/neovim/comments/n6cdnl/my_first_neovim_plugin_restnvim/
+      -- NOTE: add below content to file: ~/.config/nvim/ftdetect/http.vim
+
+      -- map <leader>rr to http rest request
+      -- autocmd BufRead,BufNewFile *.http		set filetype=http
+      -- vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+      --   pattern = {"*.http"},
+      --   callback = function(_) -- ev
+      --     vim.opt.filetype = 'http'
+      --   end
+      -- })
     end
   },
 
@@ -298,5 +333,134 @@ return {
     config = function(_, opts)
         require('bufresize').setup(opts)
     end
+  },
+
+  -- multiple cursor support (ctrl-n)
+  {
+    'mg979/vim-visual-multi',
+  },
+
+  -- copy killring from emacs
+  {
+    'gbprod/yanky.nvim',
+    keys = {
+      { "p", "<Plug>(YankyPutAfter)", desc = "Paste after cursor", mode = {"x", "n"} },
+      { "P", "<Plug>(YankyPutBefore)", desc = "Paste before cursor", mode = {"x", "n"} },
+      { "gp", "<Plug>(YankyGPutAfter)", desc = "Paste after but leave cursor", mode = {"x", "n"} },
+      { "gP", "<Plug>(YankyGPutBefore)", desc = "Paste before but leave cursor", mode = {"x", "n"} },
+
+      { "<M-y>", "<Plug>(YankyCycleForward)", desc = "Paste from killring", mode = "n" },
+      { "<M-Y>", "<Plug>(YankyCycleBackward)", desc = "Paste from previous killring", mode = "n" },
+    },
+    opts = {},
+    config = function(_, opts)
+        require('yanky').setup(opts)
+    end
+  },
+
+  -- =========================== --
+  -- LSP, linters and formatters
+  -- =========================== --
+  -- os-level package manager
+  {
+    "williamboman/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
+    opts = {
+      ensure_installed = {
+        "eslint-lsp", -- linter
+        "prettier", -- formatter
+        "js-debug-adapter", -- JavaScript debugger
+        "typescript-language-server", -- JavaScript/TypeScript LSP
+        "clangd", -- C/C++ LSP
+        "clang-format", -- C/C++ formatter
+        "codelldb", -- clang debugger
+      },
+    },
+    config = function(_, opts)
+      require("mason").setup(opts)
+
+      -- custom nvchad cmd to install all mason binaries listed
+      vim.api.nvim_create_user_command("MasonInstallAll", function()
+        vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
+      end, {})
+
+      vim.g.mason_binaries_list = opts.ensure_installed
+    end,
+  },
+
+  -- codelldb nvim plugin
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap",
+    },
+    opts = {
+      handlers = {},
+    }
+  },
+  -- js debugger ui
+  {
+    "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
+    dependencies = "mfussenegger/nvim-dap",
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
+      require("dapui").setup()
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
+    end
+  },
+  -- js debugger
+  {
+    "mfussenegger/nvim-dap",
+    keys = {
+      { "<leader>db", "<cmd>DapToggleBreakpoint<CR>", desc = "Add breakpoint at line" },
+      { "<leader>dr", "<cmd>DapContinue<CR>", desc = "Run or continue the debugger" },
+    },
+    config = function()
+      require "custom.plugins.configs.dap"
+    end
+  },
+  -- C/C++ formatter and linter
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = "VeryLazy",
+    opts = function()
+      return require "custom.plugins.configs.null-ls"
+    end
+  },
+  -- prettier (2 second delay between activation on write)
+  {
+    "mhartington/formatter.nvim",
+    event = "VeryLazy",
+    opts = function()
+      return require "custom.plugins.configs.formatter"
+    end
+  },
+  -- eslint-lsp (5 second delay between activation on write)
+  {
+    "mfussenegger/nvim-lint",
+    event = "VeryLazy",
+    config = function()
+      require "custom.plugins.configs.lint"
+    end
+  },
+  -- plugin for lsp
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      -- require "plugins.configs.lspconfig"
+      require "custom.plugins.configs.lspconfig"
+    end,
   },
 }
