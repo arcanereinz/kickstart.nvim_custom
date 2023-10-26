@@ -22,8 +22,13 @@ vim.api.nvim_set_keymap('n', '[q', '<cmd>cpfile<CR>', { noremap = true })
 vim.api.nvim_set_keymap('v', '<C-C>', '"+y', { noremap = true })
 
 -- go to next git match (remap needed)
-vim.api.nvim_set_keymap('n', ']\\', ']/', { noremap = false })
-vim.api.nvim_set_keymap('n', '[\\', '[/', { noremap = false })
+vim.api.nvim_set_keymap('n', '[p', ']/', { noremap = false })
+vim.api.nvim_set_keymap('n', ']\\', '[/', { noremap = false })
+
+-- Replace word under cursor across entire buffer
+-- source: https://www.youtube.com/watch?v=N-X_zjU5INs
+-- source: https://github.com/exosyphon/nvim/blob/43dc5cd2a903671e711f7f58ef070d1641c0b8b6/lua/exosyphon/remaps.lua#L47
+vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace under word" })
 
 -- <tab> and <c-i> same so remapping <c-i> to <m-o>
 -- also alt+shift works but ctrl+shift does not work so must lowercase o

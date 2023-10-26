@@ -342,6 +342,8 @@ return {
   },
 
   -- multiple cursor support (ctrl-n)
+  -- To select all occurrence inside function using visual multi-mode: <c-n> m i {
+  -- @see https://www.youtube.com/watch?v=N-X_zjU5INs
   {
     'mg979/vim-visual-multi',
   },
