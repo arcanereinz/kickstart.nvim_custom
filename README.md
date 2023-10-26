@@ -23,51 +23,60 @@ require('custom.init');
 
 4. Install fonts with icons
 
-on macOS (installs to ~/Library/Fonts) and verify with Font Book app
-```sh
-brew tap homebrew/cask-fonts && brew install --cask font-jetbrains-mono
-```
-or
+    4.1 on macOS (installs to ~/Library/Fonts) and verify with Font Book app
+    ```sh
+    brew tap homebrew/cask-fonts && brew install --cask font-jetbrains-mono
+    ```
 
-on Linux
+    4.2 or on Linux
+    ```sh
+    curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip
+    unzip -d jet-brains-mono-nerd-font JetBrainsMono.zip
+    mv jet-brains-mono-nerd-font ~/.local/share/fonts/
+    # for macos copy *.ttf to ~/Library/Fonts
+    # then open Font Book to verify
+    fc-cache -f -v
+    ```
+
+5. in neovim, resync Lazy package manager
 ```sh
-curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip
-unzip -d jet-brains-mono-nerd-font JetBrainsMono.zip
-mv jet-brains-mono-nerd-font ~/.local/share/fonts/
-# for macos copy *.ttf to ~/Library/Fonts
-# then open Font Book to verify
-fc-cache -f -v
+:Lazy
+```
+
+6. in neovim, import os-level dependencies via custom mason mapping
+```sh
+:MasonInstallAll
 ```
 
 ### Post Installation Instructions
 
-inside any typescript project install node types to allow lsp to read built-in types
+* inside any typescript project install node types to allow lsp to read built-in types
 ```sh
 npm install --save-dev @types/node
 ```
 
-to get lsp working on redhat linux
+* to get lsp working on redhat linux
 ```sh
 npm install -g typescript-language-server typescript
 ```
 
-[run inside nvim] to fix treesitter unable to access /usr/share/nvim/runtime/lua/
+* in neovim, to fix treesitter unable to access /usr/share/nvim/runtime/lua/
 ```sh
 TSInstall comment
 TSInstall all
 ```
 
-to enable live grep (find in file)
+* to enable live grep (find in file)
 ```sh
 sudo yum install ripgrep
 ```
 
-startup dap server for javascript debugging in neovim
+* startup dap server for javascript debugging in neovim
 ```sh
 echo 'alias dap="~/.local/share/nvim/mason/packages/js-debug-adapter/js-debug-adapter 8123 127.0.0.1"' >> ~/.bashrc
 ```
 
-to get clipboard
+* to get clipboard
 ```sh
 yum install xclip
 ```
