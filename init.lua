@@ -2,13 +2,13 @@
 -- custom keybindings
 -- ==================
 -- escape if key not convenient (insert mode)
-vim.api.nvim_set_keymap('i', '<C-G>', '<C-\\><C-N>', { noremap = true })
--- terminal mode for :terminal
-vim.api.nvim_set_keymap('t', '<C-G>', '<C-\\><C-N>', { noremap = true })
+vim.api.nvim_set_keymap('i', '<C-G>', '<C-\\><C-N>', { noremap = true, desc = 'Escapse inside terminal' })
+-- terminal mode for :terminal or <M-i> or <leaer>tt
+vim.api.nvim_set_keymap('t', '<C-G>', '<C-\\><C-N>', { noremap = true, desc = 'Escapte inside terminal' })
 
 -- tabs
-vim.api.nvim_set_keymap('n', '<Leader>gO', '<cmd>tabnew<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>go', '<cmd>tabclose<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>gO', '<cmd>tabnew<CR>', { noremap = true, desc = 'Open new tab' })
+vim.api.nvim_set_keymap('n', '<Leader>go', '<cmd>tabclose<CR>', { noremap = true, desc = 'Close tab' })
 
 -- buffers
 vim.api.nvim_set_keymap('n', 'ge', '<cmd>bnext<CR>', { noremap = true, desc = 'Next buffer' })
@@ -17,15 +17,17 @@ vim.api.nvim_set_keymap('n', 'gO', '<cmd>enew<CR>', { noremap = true, desc = 'Ne
 vim.api.nvim_set_keymap('n', 'go', '<cmd>:bdelete<CR>', { noremap = true, desc = 'Close tab' })
 
 -- quickfix
-vim.api.nvim_set_keymap('n', ']q', '<cmd>cnfile<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '[q', '<cmd>cpfile<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', ']q', '<cmd>cnfile<CR>', { noremap = true, desc = 'Goto next quickfix file' })
+vim.api.nvim_set_keymap('n', '[q', '<cmd>cpfile<CR>', { noremap = true, desc = 'Goto previous quickfix file' })
 
 -- copy to clipboard
-vim.api.nvim_set_keymap('v', '<C-C>', '"+y', { noremap = true })
+vim.api.nvim_set_keymap('v', '<C-C>', '"+y', { noremap = true, desc = 'Copy to clipboard' })
 
 -- go to next git match (remap needed)
-vim.api.nvim_set_keymap('n', '[p', ']/', { noremap = false })
-vim.api.nvim_set_keymap('n', ']\\', '[/', { noremap = false })
+vim.api.nvim_set_keymap('n', '[p', ']/', { noremap = false, desc = 'Goto next git file' })
+vim.api.nvim_set_keymap('n', ']\\', '[/', { noremap = false, desc = 'Goto previous git file'})
+vim.api.nvim_set_keymap('n', '<leader>gh', ':Git log --graph --oneline --decorate --date-order --source --format=format:"%C(bold blue)%h%C(reset) - %C(bold red)%ad%C(reset) %C(bold green)(%ar)%C(reset) %C(bold yellow)%S%C(reset) %C(normal)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold cyan)%d%C(reset)" -- %<CR><CR>', { noremap = true, desc = 'Goto file history' })
+-- @todo install undotree
 
 -- Replace word under cursor across entire buffer
 -- source: https://www.youtube.com/watch?v=N-X_zjU5INs
