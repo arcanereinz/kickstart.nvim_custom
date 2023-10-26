@@ -158,6 +158,12 @@ return {
       highlights = function()
         local l_bufferbg_color = 23 -- 23: turquoise, 233: black
         return {
+          tab_selected = {
+            ctermbg = l_bufferbg_color,
+          },
+          tab_separator_selected = {
+            ctermbg = l_bufferbg_color,
+          },
           duplicate_selected = {
             ctermbg = l_bufferbg_color,
             italic = true,
@@ -609,3 +615,212 @@ return {
     end,
   },
 }
+
+
+-- {
+--   fill = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   background = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   tab = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   tab_selected = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   tab_separator = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   tab_separator_selected = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   tab_close = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   close_button = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   close_button_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   close_button_selected = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   buffer_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   buffer_selected = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   numbers = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   numbers_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   numbers_selected = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   diagnostic = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   diagnostic_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   diagnostic_selected = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   hint = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   hint_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   hint_selected = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   hint_diagnostic = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   hint_diagnostic_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   hint_diagnostic_selected = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   info = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   info_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   info_selected = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   info_diagnostic = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   info_diagnostic_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   info_diagnostic_selected = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   warning = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   warning_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   warning_selected = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   warning_diagnostic = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   warning_diagnostic_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   warning_diagnostic_selected = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   error = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   error_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   error_selected = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   error_diagnostic = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   error_diagnostic_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   error_diagnostic_selected = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   modified = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   modified_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   modified_selected = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   duplicate_selected = {
+--     ctermbg = l_bufferbg_color,
+--     italic = true,
+--   },
+--   duplicate_visible = {
+--     ctermbg = l_bufferbg_color,
+--     italic = true,
+--   },
+--   duplicate = {
+--     ctermbg = l_bufferbg_color,
+--     italic = true,
+--   },
+--   separator_selected = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   separator_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   separator = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   indicator_visible = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   indicator_selected = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   pick_selected = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   pick_visible = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   pick = {
+--     ctermbg = l_bufferbg_color,
+--     bold = true,
+--     italic = true,
+--   },
+--   offset_separator = {
+--     ctermbg = l_bufferbg_color,
+--   },
+--   trunc_marker = {
+--     ctermbg = l_bufferbg_color,
+--   },
+-- }

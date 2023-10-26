@@ -7,12 +7,14 @@ vim.api.nvim_set_keymap('i', '<C-G>', '<C-\\><C-N>', { noremap = true })
 vim.api.nvim_set_keymap('t', '<C-G>', '<C-\\><C-N>', { noremap = true })
 
 -- tabs
-vim.api.nvim_set_keymap('n', '<Leader>tn', '<cmd>tabnew<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>tc', '<cmd>tabclose<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>gO', '<cmd>tabnew<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Leader>go', '<cmd>tabclose<CR>', { noremap = true })
 
 -- buffers
-vim.api.nvim_set_keymap('n', '<Tab>', '<cmd>bnext<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<S-Tab>', '<cmd>bprev<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', 'ge', '<cmd>bnext<CR>', { noremap = true, desc = 'Next buffer' })
+vim.api.nvim_set_keymap('n', 'gw', '<cmd>bprev<CR>', { noremap = true, desc = 'Previous buffer' })
+vim.api.nvim_set_keymap('n', 'gO', '<cmd>enew<CR>', { noremap = true, desc = 'New buffer' })
+vim.api.nvim_set_keymap('n', 'go', '<cmd>:bdelete<CR>', { noremap = true, desc = 'Close tab' })
 
 -- quickfix
 vim.api.nvim_set_keymap('n', ']q', '<cmd>cnfile<CR>', { noremap = true })
@@ -32,7 +34,7 @@ vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left>
 
 -- <tab> and <c-i> same so remapping <c-i> to <m-o>
 -- also alt+shift works but ctrl+shift does not work so must lowercase o
-vim.api.nvim_set_keymap('n', '<M-o>', '<C-I>', { noremap = true }) -- noremap needed
+-- vim.api.nvim_set_keymap('n', '<M-o>', '<C-I>', { noremap = true }) -- noremap needed
 
 -- ===============
 -- git keybindings
