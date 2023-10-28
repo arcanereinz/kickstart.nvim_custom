@@ -26,13 +26,13 @@ vim.api.nvim_set_keymap('v', '<C-C>', '"+y', { noremap = true, desc = 'Copy to c
 -- go to next git match (remap needed)
 vim.api.nvim_set_keymap('n', '[p', ']/', { noremap = false, desc = 'Goto next git file' })
 vim.api.nvim_set_keymap('n', ']\\', '[/', { noremap = false, desc = 'Goto previous git file'})
-vim.api.nvim_set_keymap('n', '<leader>gh', ':Git log --graph --oneline --decorate --date-order --source --format=format:"%C(bold blue)%h%C(reset) - %C(bold red)%ad%C(reset) %C(bold green)(%ar)%C(reset) %C(bold yellow)%S%C(reset) %C(normal)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold cyan)%d%C(reset)" -- %<CR><CR>', { noremap = true, desc = 'Goto file history' })
+vim.api.nvim_set_keymap('n', '<leader>gh', ':Git log --graph --oneline --decorate --date-order --source --stat --format=format:"%C(bold blue)%h%C(reset) - %C(bold red)%ad%C(reset) %C(bold green)(%ar)%C(reset) %C(bold yellow)%S%C(reset) %C(normal)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold cyan)%d%C(reset)" -- %<CR><CR>', { noremap = true, desc = 'Goto file history' })
 -- @todo install undotree
 
 -- Replace word under cursor across entire buffer
 -- source: https://www.youtube.com/watch?v=N-X_zjU5INs
 -- source: https://github.com/exosyphon/nvim/blob/43dc5cd2a903671e711f7f58ef070d1641c0b8b6/lua/exosyphon/remaps.lua#L47
-vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace under word" })
+vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left>]], { desc = "Replace under word" })
 
 -- <tab> and <c-i> same so remapping <c-i> to <m-o>
 -- also alt+shift works but ctrl+shift does not work so must lowercase o
@@ -128,7 +128,18 @@ vim.opt.clipboard = nil
 -- set to 256 supported color scheme if not in gui mode
 if vim.fn.has('gui_running') == 0 then
   vim.cmd.colorscheme('desert')
+  -- must set hightlight after colorscheme
+  vim.cmd.highlight('debugPC', 'ctermfg=50')
+  vim.cmd.highlight('DiagnosticError', 'ctermfg=202') -- orange red or 208 orange
+  vim.cmd.highlight('Pmenu', 'ctermbg=238') -- set background panel menu
 end
+
+-- vim.api.nvim_set_hl(0, 'debugPC', {
+--   cterm = 'reverse',
+--   ctermfg = 3,
+--   gui = 'reverse',
+--   guifg = '#666666',
+-- })
 
 -- load ./custom/core/mappings.lua:general
 require("custom.core.utils").load_mappings()

@@ -97,3 +97,4 @@ Search and replace with Telscope + cdo
 * The (almost) perfect Neovim setup for Node.js: https://www.youtube.com/watch?v=CVCBHHFXWNE
 * Mason package repository: https://mason-registry.dev/registry/list
 * Multi-file Search and Replace in Neovim: https://levelup.gitconnected.com/multi-file-search-and-replace-in-neovim-83a0a8d22e14#:~:text=Once%20you%20have%20Telescope%20installed,whatever%20you%20are%20searching%20for.&text=Once%20you%20have%20your%20results,in%20Telescope%20is%20Ctrl%2BQ.&text=Hit%20enter%20and%20you%20should,each%20replace%20in%20the%20list.
+* How to attach debugger to ts-node command in VSCode: https://stackoverflow.com/questions/73634693/how-to-attach-debugger-to-ts-node-command-in-vscode
