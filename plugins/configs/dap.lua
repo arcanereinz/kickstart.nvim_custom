@@ -10,6 +10,7 @@ dap.adapters["pwa-node"] = {
   -- executes: ~/.local/share/nvim/lazy/nvim-dap/lua/dap/session.lua
   executable = {
     command = "js-debug-adapter",
+    -- need to specifying home ip
     args = {"8123", "127.0.0.1"},
   }
 }

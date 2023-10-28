@@ -284,37 +284,47 @@ return {
   },
 
   -- run postman like http queries for *.http files
+  -- {
+  --   'rest-nvim/rest.nvim',
+  --   dependencies = 'nvim-lua/plenary.nvim',
+  --   -- NOTE: cannot add keys since it breaks *.http file association
+  --   -- keys = {},
+  --   opts = {
+  --     -- Skip SSL verification, useful for unknown certificates
+  --     skip_ssl_verification = true,
+  --   },
+  --   config = function(_, opts)
+  --     require('rest-nvim').setup(opts)
+  --
+  --     -- keybindings for rest.nvim
+  --     vim.api.nvim_set_keymap('n', '<Plug>RestNvim', ':lua require("rest-nvim").run()<CR>', { noremap = true})
+  --     vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim<CR>', { noremap = true })
+  --
+  --     -- =====
+  --     -- NOTES
+  --     -- =====
+  --     -- rest.nvim key bindings [NOTE: rename file extension to .http for this to work]
+  --     -- https://www.reddit.com/r/neovim/comments/n6cdnl/my_first_neovim_plugin_restnvim/
+  --     -- NOTE: add below content to file: ~/.config/nvim/ftdetect/http.vim
+  --
+  --     -- map <leader>rr to http rest request
+  --     -- autocmd BufRead,BufNewFile *.http		set filetype=http
+  --     -- vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
+  --     --   pattern = {'*.http'},
+  --     --   callback = function(_) -- ev
+  --     --     vim.opt.filetype = 'http'
+  --     --   end
+  --     -- })
+  --   end
+  -- },
+
+  -- run postman like http queries for *.http files
   {
-    'rest-nvim/rest.nvim',
-    dependencies = 'nvim-lua/plenary.nvim',
-    -- NOTE: cannot add keys since it breaks *.http file association
-    -- keys = {},
-    opts = {
-      -- Skip SSL verification, useful for unknown certificates
-      skip_ssl_verification = true,
-    },
+    'diepm/vim-rest-console',
     config = function(_, opts)
-      require('rest-nvim').setup(opts)
-
-      -- keybindings for rest.nvim
-      vim.api.nvim_set_keymap('n', '<Plug>RestNvim', ':lua require("rest-nvim").run()<CR>', { noremap = true})
-      vim.api.nvim_set_keymap('n', '<Leader>rr', '<Plug>RestNvim<CR>', { noremap = true })
-
-      -- =====
-      -- NOTES
-      -- =====
-      -- rest.nvim key bindings [NOTE: rename file extension to .http for this to work]
-      -- https://www.reddit.com/r/neovim/comments/n6cdnl/my_first_neovim_plugin_restnvim/
-      -- NOTE: add below content to file: ~/.config/nvim/ftdetect/http.vim
-
-      -- map <leader>rr to http rest request
-      -- autocmd BufRead,BufNewFile *.http		set filetype=http
-      -- vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
-      --   pattern = {'*.http'},
-      --   callback = function(_) -- ev
-      --     vim.opt.filetype = 'http'
-      --   end
-      -- })
+      -- keybindings for vim-rest-console (NOTE: default trigger <C-J>)
+      vim.api.nvim_set_keymap('n', '<Leader>rr', '<cmd>call VrcQuery()<CR>', { noremap = true, desc = 'Rest Request' })
+      vim.opt.maxmempattern = 2000
     end
   },
 
