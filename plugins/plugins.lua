@@ -319,8 +319,9 @@ return {
   -- },
 
   -- run postman like http queries for *.http files
+  -- NOTE: Original plugin source 'diepm/vim-rest-console' has a bug where "Content-Type" needed to be capitalized
   {
-    'diepm/vim-rest-console',
+    'nangchan/vim-rest-console',
     config = function(_, opts)
       -- keybindings for vim-rest-console (NOTE: default trigger <C-J>)
       vim.api.nvim_set_keymap('n', '<Leader>rr', '<cmd>call VrcQuery()<CR>', { noremap = true, desc = 'Rest Request' })
