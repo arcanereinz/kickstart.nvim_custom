@@ -87,8 +87,30 @@ Search and replace with Telscope + cdo
 
 1. Search using telescope then after hit Ctrl-Q
 2. Then replace using cdo (note: "I" means case sensitive, "c" is confirm change)or to run one command per file use :cfdo
-```vi
+```vimscript
 :cdo s/[searched text]/[replaced text]/gIc
+```
+
+Missing propeties for lua script
+
+1. Add the following comment to remove warning
+```lua
+---@diagnostic disable-next-line missing-fields
+```
+or update lua_ls
+```lua
+  lua_ls = {
+    Lua = {
+      diagnostics = {
+        disable = { "missing-fields", "incomplete-signature-doc" },
+      },
+    },
+  },
+
+File not included in TSConfig eventhough it is included
+
+1. Rename file that conflicts with a .ts version such as test.js and test.ts rename test.js to test1.js
+
 ```
 
 ### Links
@@ -98,4 +120,6 @@ Search and replace with Telscope + cdo
 * Mason package repository: https://mason-registry.dev/registry/list
 * Multi-file Search and Replace in Neovim: https://levelup.gitconnected.com/multi-file-search-and-replace-in-neovim-83a0a8d22e14#:~:text=Once%20you%20have%20Telescope%20installed,whatever%20you%20are%20searching%20for.&text=Once%20you%20have%20your%20results,in%20Telescope%20is%20Ctrl%2BQ.&text=Hit%20enter%20and%20you%20should,each%20replace%20in%20the%20list.
 * How to attach debugger to ts-node command in VSCode: https://stackoverflow.com/questions/73634693/how-to-attach-debugger-to-ts-node-command-in-vscode
-* nvim-dap adapter for vscode-js-debug.: https://github.com/mxsdev/nvim-dap-vscode-js
+* nvim-dap adapter for vscode-js-debug: https://github.com/mxsdev/nvim-dap-vscode-js
+* Learn Vim the Smart Way: https://learnvim.irian.to
+* react + typescript neovim setup: https://github.com/anasrar/.dotfiles/blob/4c444c3ab2986db6ca7e2a47068222e47fd232e2/neovim/.config/nvim/lua/rin/DAP/languages/typescript.lua
