@@ -6,15 +6,14 @@ vim.api.nvim_set_keymap('i', '<C-G>', '<C-\\><C-N>', { noremap = true, desc = 'E
 -- terminal mode for :terminal or <M-i> or <leaer>tt
 vim.api.nvim_set_keymap('t', '<C-G>', '<C-\\><C-N>', { noremap = true, desc = 'Escapte inside terminal' })
 
--- tabs
-vim.api.nvim_set_keymap('n', '<Leader>gO', '<cmd>tabnew<CR>', { noremap = true, desc = 'Open new tab' })
-vim.api.nvim_set_keymap('n', '<Leader>go', '<cmd>tabclose<CR>', { noremap = true, desc = 'Close tab' })
-
 -- buffers
 vim.api.nvim_set_keymap('n', 'ge', '<cmd>bnext<CR>', { noremap = true, desc = 'Next buffer' })
 vim.api.nvim_set_keymap('n', 'gw', '<cmd>bprev<CR>', { noremap = true, desc = 'Previous buffer' })
-vim.api.nvim_set_keymap('n', 'gO', '<cmd>enew<CR>', { noremap = true, desc = 'New buffer' })
-vim.api.nvim_set_keymap('n', 'go', '<cmd>:bdelete<CR>', { noremap = true, desc = 'Close tab' })
+vim.api.nvim_set_keymap('n', 'go', '<cmd>enew<CR>', { noremap = true, desc = 'New buffer' })
+vim.api.nvim_set_keymap('n', 'ga', '<cmd>:bdelete<CR>', { noremap = true, desc = 'Close tab' })
+
+-- tabs
+vim.api.nvim_set_keymap('n', 'gO', '<cmd>tabnew<CR>', { noremap = true, desc = 'Open new tab' })
 
 -- quickfix
 vim.api.nvim_set_keymap('n', ']q', '<cmd>cnfile<CR>', { noremap = true, desc = 'Goto next quickfix file' })
@@ -23,16 +22,15 @@ vim.api.nvim_set_keymap('n', '[q', '<cmd>cpfile<CR>', { noremap = true, desc = '
 -- copy to clipboard
 vim.api.nvim_set_keymap('v', '<C-C>', '"+y', { noremap = true, desc = 'Copy to clipboard' })
 
--- go to next git match (remap needed)
-vim.api.nvim_set_keymap('n', '[p', ']/', { noremap = false, desc = 'Goto next git file' })
-vim.api.nvim_set_keymap('n', ']\\', '[/', { noremap = false, desc = 'Goto previous git file'})
-vim.api.nvim_set_keymap('n', '<leader>gh', ':Git log --graph --oneline --decorate --date-order --source --stat --format=format:"%C(bold blue)%h%C(reset) - %C(bold red)%ad%C(reset) %C(bold green)(%ar)%C(reset) %C(bold yellow)%S%C(reset) %C(normal)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold cyan)%d%C(reset)" -- %<CR><CR>', { noremap = true, desc = 'Goto file history' })
+-- go to next git match (]m [m), ":Git log -- %" for current file
+vim.api.nvim_set_keymap('n', '<Leader>gh', ':Git log --graph --decorate --date-order --stat<CR><CR>', { noremap = true, desc = 'Goto [h]istory' })
+vim.api.nvim_set_keymap('n', '<Leader>gl', ':Git log --graph --decorate --date-order --stat -- %<CR><CR>', { noremap = true, desc = 'Goto fi[l]e history' })
 -- @todo install undotree
 
 -- Replace word under cursor across entire buffer
 -- source: https://www.youtube.com/watch?v=N-X_zjU5INs
 -- source: https://github.com/exosyphon/nvim/blob/43dc5cd2a903671e711f7f58ef070d1641c0b8b6/lua/exosyphon/remaps.lua#L47
-vim.keymap.set("n", "<leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left>]], { desc = "Replace under word" })
+vim.keymap.set("n", "<Leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left>]], { desc = "Replace under word" })
 
 -- <tab> and <c-i> same so remapping <c-i> to <m-o>
 -- also alt+shift works but ctrl+shift does not work so must lowercase o
@@ -86,22 +84,6 @@ vim.cmd [[
   " Useful if there's a lot of camel case items
   let g:completion_matching_ignore_case = 1
 ]]
-
--- kristijanhusak/vim-dadbod-ui: auto expand for DBUI
--- vim.cmd [[
---   autocmd User DBUIOpened call s:open_db()
---
---   function! s:open_db()
---     "Find db.
---     call search('dev')
---     "Open db
---     norm o
---     "Find tables
---     call search('Tables')
---     "Open tables
---     norm o
---   endfunction
--- ]]
 
 vim.opt.splitright = true
 

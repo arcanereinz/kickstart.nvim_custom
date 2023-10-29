@@ -33,7 +33,7 @@ return {
       -- toggle
       { '<leader>o', '<cmd>NvimTreeFindFileToggle<CR>', desc = 'toggle NvimTree' },
       -- focus
-      { '<leader>e', '<cmd>NvimTreeFocus<CR>', desc = 'Focus nvimtree' },
+      { '<leader>e', '<cmd>NvimTreeFindFile<CR>', desc = 'Focus nvimtree' },
     },
     -- opts = function()
     --   return require 'custom.plugins.configs.nvimtree'
@@ -266,7 +266,7 @@ return {
 
   -- database ui
   {
-    'kristijanhusak/vim-dadbod-ui',
+    'nangchan/vim-dadbod-ui',
     dependencies = {
       { 'tpope/vim-dadbod', lazy = true },
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
@@ -278,9 +278,50 @@ return {
       'DBUIFindBuffer',
     },
     init = function()
-      -- Your DBUI configuration
+      -- use fonts with icons
       vim.g.db_ui_use_nerd_fonts = 1
+      -- auto expand sql results
+      vim.g.db_ui_expand_query_results = 1
+      -- do not execute on save
+      vim.g.db_ui_execute_on_save = 0
+      -- toggle vim-dadbod-ui
+      vim.api.nvim_set_keymap('n', '<leader>gu', '<cmd>DBUIToggle<CR>', { noremap = true, desc = 'Goto DB[U]I' })
     end,
+    config = function(_, opts)
+      -- associate *.dbout with sql to enable highlighting and auto-expand on query result
+      -- autocmd BufRead,BufNewFile *.dbout set filetype=dbout
+      vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
+        pattern = {'*.dbout'},
+        callback = function(_) -- ev
+          vim.opt.filetype = 'sql'
+        end
+      })
+      -- auto open drawer to target folder: qa-write/Saved queries
+      vim.cmd [[
+        function! s:open_db()
+          "Find db.
+          call search('qa-write')
+          "Open db
+          norm o
+          "Find tables
+          call search('Saved queries')
+          "Open tables
+          norm o
+        endfunction
+        " DBUIOpened is called when DBUI drawer is opened
+        autocmd User DBUIOpened call s:open_db()
+        " Allow commenting for mysql filetype
+        autocmd FileType mysql setlocal commentstring=--\ %s
+      ]]
+      -- NOTE: not working
+      -- autocmd FileType sql set foldmethod=manual
+      -- vim.api.nvim_create_autocmd({'FileType'}, {
+      --   pattern = {'sql'},
+      --   callback = function(_) -- ev
+      --     vim.opt_local.foldmethod='manual'
+      --   end
+      -- })
+    end
   },
 
   -- run postman like http queries for *.http files
