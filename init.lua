@@ -2,9 +2,9 @@
 -- custom keybindings
 -- ==================
 -- escape if key not convenient (insert mode)
-vim.api.nvim_set_keymap('i', '<C-G>', '<C-\\><C-N>', { noremap = true, desc = 'Escapse inside terminal' })
+vim.api.nvim_set_keymap('i', '<C-g>', '<C-\\><C-n>', { noremap = true, desc = 'Escapse inside terminal' })
 -- terminal mode for :terminal or <M-i> or <leaer>tt
-vim.api.nvim_set_keymap('t', '<C-G>', '<C-\\><C-N>', { noremap = true, desc = 'Escapte inside terminal' })
+vim.api.nvim_set_keymap('t', '<C-g>', '<C-\\><C-n>', { noremap = true, desc = 'Escapte inside terminal' })
 
 -- buffers
 vim.api.nvim_set_keymap('n', 'ge', '<cmd>bnext<CR>', { noremap = true, desc = 'Next buffer' })
@@ -20,7 +20,10 @@ vim.api.nvim_set_keymap('n', ']q', '<cmd>cnfile<CR>', { noremap = true, desc = '
 vim.api.nvim_set_keymap('n', '[q', '<cmd>cpfile<CR>', { noremap = true, desc = 'Goto previous quickfix file' })
 
 -- copy to clipboard
-vim.api.nvim_set_keymap('v', '<C-C>', '"+y', { noremap = true, desc = 'Copy to clipboard' })
+vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, desc = 'Copy to clipboard' })
+vim.api.nvim_set_keymap('v', '<D-c>', '"+y', { noremap = true, desc = 'Copy to clipboard' })
+vim.api.nvim_set_keymap('n', '<D-v>', '"+p', { noremap = true, desc = 'Copy to clipboard' })
+vim.api.nvim_set_keymap('i', '<D-v>', '<C-o>"+p', { noremap = true, desc = 'Copy to clipboard' })
 
 -- go to next git match (]m [m), ":Git log -- %" for current file
 vim.api.nvim_set_keymap('n', '<Leader>gh', ':Git log --graph --decorate --date-order --stat<CR><CR>', { noremap = true, desc = 'Goto [h]istory' })
@@ -34,7 +37,7 @@ vim.keymap.set("n", "<Leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left
 
 -- <tab> and <c-i> same so remapping <c-i> to <m-o>
 -- also alt+shift works but ctrl+shift does not work so must lowercase o
--- vim.api.nvim_set_keymap('n', '<M-o>', '<C-I>', { noremap = true }) -- noremap needed
+-- vim.api.nvim_set_keymap('n', '<M-o>', '<C-i>', { noremap = true }) -- noremap needed
 
 -- ===============
 -- git keybindings

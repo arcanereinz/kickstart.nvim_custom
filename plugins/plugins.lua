@@ -540,4 +540,29 @@ return {
       require 'custom.plugins.configs.lspconfig'
     end,
   },
+  -- file level bookmarks
+  {
+    'ThePrimeagen/harpoon',
+    keys = {
+      { '<leader>gm', '<cmd>lua require("harpoon.mark").add_file()<CR>', desc = 'Harpoon: mark file' },
+      { '<leader>gv', '<cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>', desc = 'Harpoon: view marks' },
+      { '<leader>gn', '<cmd>lua require("harpoon.ui").nav_next()<CR>', desc = 'Harpoon: next mark' },
+      { '<leader>gp', '<cmd>lua require("harpoon.ui").nav_prev()<CR>', desc = 'Harpoon: previous mark' },
+      { '<leader>g0', '<cmd>lua require("harpoon.term").gotoTerminal(0)<CR>', desc = 'Harpoon: goto terminal(0)' },
+      { '<leader>g1', '<cmd>lua require("harpoon.ui").nav_file(1)<CR>', desc = 'Harpoon: goto file(1)' },
+      { '<leader>g2', '<cmd>lua require("harpoon.ui").nav_file(2)<CR>', desc = 'Harpoon: goto file(2)' },
+      { '<leader>g3', '<cmd>lua require("harpoon.ui").nav_file(3)<CR>', desc = 'Harpoon: goto file(3)' },
+      { '<leader>g4', '<cmd>lua require("harpoon.ui").nav_file(4)<CR>', desc = 'Harpoon: goto file(4)' },
+      { '<leader>g5', '<cmd>lua require("harpoon.ui").nav_file(5)<CR>', desc = 'Harpoon: goto file(5)' },
+      { '<leader>g6', '<cmd>lua require("harpoon.ui").nav_file(6)<CR>', desc = 'Harpoon: goto file(6)' },
+      { '<leader>g7', '<cmd>lua require("harpoon.ui").nav_file(7)<CR>', desc = 'Harpoon: goto file(7)' },
+      { '<leader>g8', '<cmd>lua require("harpoon.ui").nav_file(8)<CR>', desc = 'Harpoon: goto file(8)' },
+      { '<leader>g9', '<cmd>lua require("harpoon.ui").nav_file(9)<CR>', desc = 'Harpoon: goto file(9)' },
+      { '<leader>g9', '<cmd>lua require("harpoon.ui").nav_file(9)<CR>', desc = 'Harpoon: goto file(9)' },
+      { '<leader>ge', '<cmd>Telescope harpoon marks<CR>', desc = 'Harpoon: telescope marks' },
+    },
+    config = function()
+      require("telescope").load_extension('harpoon')
+    end,
+  },
 }
