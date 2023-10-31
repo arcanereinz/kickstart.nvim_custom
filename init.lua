@@ -19,11 +19,20 @@ vim.api.nvim_set_keymap('n', 'gO', '<cmd>tabnew<CR>', { noremap = true, desc = '
 vim.api.nvim_set_keymap('n', ']q', '<cmd>cnfile<CR>', { noremap = true, desc = 'Goto next quickfix file' })
 vim.api.nvim_set_keymap('n', '[q', '<cmd>cpfile<CR>', { noremap = true, desc = 'Goto previous quickfix file' })
 
--- copy to clipboard
+-- copy/paste to/from clipboard
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, desc = 'Copy to clipboard' })
 vim.api.nvim_set_keymap('v', '<D-c>', '"+y', { noremap = true, desc = 'Copy to clipboard' })
-vim.api.nvim_set_keymap('n', '<D-v>', '"+p', { noremap = true, desc = 'Copy to clipboard' })
-vim.api.nvim_set_keymap('i', '<D-v>', '<C-o>"+p', { noremap = true, desc = 'Copy to clipboard' })
+vim.api.nvim_set_keymap('n', '<D-v>', '"+p', { noremap = true, desc = 'Paste from clipboard' })
+vim.api.nvim_set_keymap('i', '<D-v>', '<C-o>"+p', { noremap = true, desc = 'Paste from clipboard' })
+
+-- fix neovide terminal
+if vim.g.neovide then
+  vim.api.nvim_set_keymap('t', '<D-v>', '<C-\\><C-o>"+p', { noremap = true, silent = true })
+  vim.g.neovide_input_macos_alt_is_meta = true
+end
+
+vim.api.nvim_set_keymap('n', '<D-/>', '<Leader>/', { noremap = false, desc = 'Toggle comment' })
+vim.api.nvim_set_keymap('v', '<D-/>', '<Leader>/', { noremap = false, desc = 'Toggle comment' })
 
 -- go to next git match (]m [m), ":Git log -- %" for current file
 vim.api.nvim_set_keymap('n', '<Leader>gh', ':Git log --graph --decorate --date-order --stat<CR><CR>', { noremap = true, desc = 'Goto [h]istory' })

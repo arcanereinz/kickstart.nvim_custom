@@ -147,6 +147,11 @@ return {
   --     -- insert_at_start = true,
   --     -- …etc.
   --   },
+  --   config = function()
+  --     -- move tabs
+  --     vim.keymap.set({ 'n' }, '<M-[>', function() vim.cmd('BufferMovePrevious') end, { desc = 'Move tab left' })
+  --     vim.keymap.set({ 'n' }, '<M-]>', function() vim.cmd('BufferMoveNext') end, { desc = 'Move tab right' })
+  --   end
   -- },
 
   -- setup top navigation
