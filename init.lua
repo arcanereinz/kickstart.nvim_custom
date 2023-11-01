@@ -21,14 +21,32 @@ vim.api.nvim_set_keymap('n', '[q', '<cmd>cpfile<CR>', { noremap = true, desc = '
 
 -- copy/paste to/from clipboard
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, desc = 'Copy to clipboard' })
-vim.api.nvim_set_keymap('v', '<D-c>', '"+y', { noremap = true, desc = 'Copy to clipboard' })
-vim.api.nvim_set_keymap('n', '<D-v>', '"+p', { noremap = true, desc = 'Paste from clipboard' })
-vim.api.nvim_set_keymap('i', '<D-v>', '<C-o>"+p', { noremap = true, desc = 'Paste from clipboard' })
 
--- fix neovide terminal
+-- specific neovide settings to make work as expected
 if vim.g.neovide then
-  vim.api.nvim_set_keymap('t', '<D-v>', '<C-\\><C-o>"+p', { noremap = true, silent = true })
+  -- copy in visual mode
+  vim.keymap.set('v', '<D-c>', '"+y', { noremap = true, desc = 'Copy to clipboard' })
+
+  -- paste in mode: https://neovide.dev/faq.html
+  vim.keymap.set('t', '<D-v>', '<C-\\><C-o>"+p', { noremap = true, silent = true })
+  vim.keymap.set('v', '<D-v>', '"+p', { noremap = true, silent = true })
+  vim.keymap.set('n', '<D-v>', '"+p', { noremap = true, desc = 'Paste from clipboard' })
+  vim.keymap.set('i', '<D-v>', '<C-o>"+P', { noremap = true, desc = 'Paste from clipboard' })
+  vim.keymap.set('c', '<D-v>', '<C-R>+')
+
+  -- select all
+  vim.keymap.set('n', '<D-a>', 'ggVG', { noremap = true, silent = true })
+  vim.keymap.set('v', '<D-a>', '<ESC>ggVG', { noremap = true, silent = true })
+  vim.keymap.set('i', '<D-a>', '<ESC>ggVG', { noremap = true, silent = true })
+
+  -- fix for terminal: make alt key function as meta key
   vim.g.neovide_input_macos_alt_is_meta = true
+
+  -- if root switch to home
+  -- lcd $HOME/Projects
+  if vim.env.PWD == '/' then
+    vim.cmd.lcd(vim.env.HOME)
+  end
 end
 
 vim.api.nvim_set_keymap('n', '<D-/>', '<Leader>/', { noremap = false, desc = 'Toggle comment' })
