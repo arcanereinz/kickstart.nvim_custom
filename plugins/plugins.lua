@@ -435,6 +435,7 @@ return {
   -- LSP, linters and formatters
   -- =========================== --
   -- os-level package manager
+  -- NOTE: to install run :MasonInstall
   {
     'williamboman/mason.nvim',
     cmd = { 'Mason', 'MasonInstall', 'MasonInstallAll', 'MasonUpdate' },
@@ -446,7 +447,8 @@ return {
         'typescript-language-server', -- JavaScript/TypeScript LSP
         'clangd', -- C/C++ LSP
         'clang-format', -- C/C++ formatter
-        'codelldb', -- clang debugger
+        'codelldb', -- C/C++ (clang) debugger
+        'phpactor', -- PHP LSP: brew install composer; brew update; brew cleanup; brew upgrade; [if needed] brew reinstall gd
       },
     },
     config = function(_, opts)
@@ -537,6 +539,14 @@ return {
       require 'custom.plugins.configs.lint'
     end
   },
+  -- @todo switch to using lsp-zero for ease of installing lsps
+  -- -- LSP Support
+  -- {
+  --   'VonHeikemen/lsp-zero.nvim',
+  --   branch = 'v3.x',
+  --   lazy = true,
+  --   config = false,
+  -- },-
   -- plugin for lsp
   {
     'neovim/nvim-lspconfig',
@@ -570,4 +580,15 @@ return {
       require("telescope").load_extension('harpoon')
     end,
   },
+  -- character search highlighting: t T ; ,
+  {
+    'rhysd/clever-f.vim',
+    config = function()
+      vim.g.clever_f_smart_case = true
+      vim.keymap.set('n', ';', '<Plug>(clever-f-repeat-forward)')
+      vim.keymap.set('v', ';', '<Plug>(clever-f-repeat-forward)')
+      vim.keymap.set('n', ',', '<Plug>(clever-f-repeat-back)')
+      vim.keymap.set('v', ',', '<Plug>(clever-f-repeat-back)')
+    end,
+  }
 }

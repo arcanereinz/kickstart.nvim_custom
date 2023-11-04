@@ -19,6 +19,7 @@ vim.api.nvim_set_keymap('n', 'gO', '<cmd>tabnew<CR>', { noremap = true, desc = '
 vim.api.nvim_set_keymap('n', ']q', '<cmd>cnfile<CR>', { noremap = true, desc = 'Goto next quickfix file' })
 vim.api.nvim_set_keymap('n', '[q', '<cmd>cpfile<CR>', { noremap = true, desc = 'Goto previous quickfix file' })
 
+-- @todo to paste in telescope map ctrl+p to <C-r>"
 -- copy/paste to/from clipboard
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, desc = 'Copy to clipboard' })
 
@@ -31,7 +32,7 @@ if vim.g.neovide then
   vim.keymap.set('t', '<D-v>', '<C-\\><C-o>"+p', { noremap = true, silent = true })
   vim.keymap.set('v', '<D-v>', '"+p', { noremap = true, silent = true })
   vim.keymap.set('n', '<D-v>', '"+p', { noremap = true, desc = 'Paste from clipboard' })
-  vim.keymap.set('i', '<D-v>', '<C-o>"+P', { noremap = true, desc = 'Paste from clipboard' })
+  vim.keymap.set('i', '<D-v>', '<C-o>"+p', { noremap = true, desc = 'Paste from clipboard' })
   vim.keymap.set('c', '<D-v>', '<C-R>+')
 
   -- select all
@@ -141,10 +142,14 @@ vim.opt.clipboard = nil
 if vim.fn.has('gui_running') == 0 then
   vim.cmd.colorscheme('desert')
   -- must set hightlight after colorscheme
+  -- to show DiagnosticError: <leader><space>
   vim.cmd.highlight('debugPC', 'ctermfg=50')
   vim.cmd.highlight('DiagnosticError', 'ctermfg=202') -- orange red or 208 orange
   vim.cmd.highlight('Pmenu', 'ctermbg=238') -- set background panel menu
 end
+
+-- increase time for syntax highlighting
+vim.opt.redrawtime = 5000
 
 -- vim.api.nvim_set_hl(0, 'debugPC', {
 --   cterm = 'reverse',

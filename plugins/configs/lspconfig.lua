@@ -36,3 +36,10 @@ lspconfig.clangd.setup {
   end,
   capabilities = capabilities
 }
+
+-- setup phpactor
+-- note: must brew install composer and/or update/upgrade brew packages or brew install gd
+lspconfig.phpactor.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
