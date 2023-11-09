@@ -19,6 +19,13 @@ vim.api.nvim_set_keymap('n', 'gO', '<cmd>tabnew<CR>', { noremap = true, desc = '
 vim.api.nvim_set_keymap('n', ']q', '<cmd>cnfile<CR>', { noremap = true, desc = 'Goto next quickfix file' })
 vim.api.nvim_set_keymap('n', '[q', '<cmd>cpfile<CR>', { noremap = true, desc = 'Goto previous quickfix file' })
 
+-- escape terminal mode via Ctrl+w
+vim.keymap.set('t', '<C-w>', '<C-\\><C-n><C-w>', { noremap = true, silent = true })
+vim.keymap.set('t', '<C-k>', '<C-\\><C-n><C-w>k', { noremap = true, silent = true })
+vim.keymap.set('t', '<C-j>', '<C-\\><C-n><C-w>j', { noremap = true, silent = true })
+vim.keymap.set('t', '<C-h>', '<C-\\><C-n><C-w>h', { noremap = true, silent = true })
+vim.keymap.set('t', '<C-l>', '<C-\\><C-n><C-w>l', { noremap = true, silent = true })
+
 -- @todo to paste in telescope map ctrl+p to <C-r>"
 -- copy/paste to/from clipboard
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, desc = 'Copy to clipboard' })
@@ -40,6 +47,10 @@ if vim.g.neovide then
   vim.keymap.set('v', '<D-a>', '<ESC>ggVG', { noremap = true, silent = true })
   vim.keymap.set('i', '<D-a>', '<ESC>ggVG', { noremap = true, silent = true })
 
+  -- toggle comments
+  vim.api.nvim_set_keymap('n', '<D-/>', '<Leader>/', { noremap = false, desc = 'Toggle comment' })
+  vim.api.nvim_set_keymap('v', '<D-/>', '<Leader>/', { noremap = false, desc = 'Toggle comment' })
+
   -- fix for terminal: make alt key function as meta key
   vim.g.neovide_input_macos_alt_is_meta = true
 
@@ -50,8 +61,14 @@ if vim.g.neovide then
   end
 end
 
-vim.api.nvim_set_keymap('n', '<D-/>', '<Leader>/', { noremap = false, desc = 'Toggle comment' })
-vim.api.nvim_set_keymap('v', '<D-/>', '<Leader>/', { noremap = false, desc = 'Toggle comment' })
+-- markdown preview
+vim.keymap.set('n', '<C-s>', '<Plug>MarkdownPreview', { noremap = true, desc = 'Markdown Preview' })
+vim.keymap.set('n', '<M-s>', '<Plug>MarkdownPreviewStop', { noremap = true, desc = 'Markdown Stop' })
+vim.keymap.set('n', '<C-p>', '<Plug>MarkdownPreviewToggle', { noremap = true, desc = 'Markdown Toggle' })
+
+-- show code documentation
+-- vim.keymap.set('n', 'K', vim.lsp.buf.hover, { silent = true, noremap = true })
+-- vim.keymap.set({ 'n', 'i' }, '<C-k>', vim.lsp.buf.signature_help, { silent = true, noremap = true })
 
 -- go to next git match (]m [m), ":Git log -- %" for current file
 vim.api.nvim_set_keymap('n', '<Leader>gh', ':Git log --graph --decorate --date-order --stat<CR><CR>', { noremap = true, desc = 'Goto [h]istory' })
