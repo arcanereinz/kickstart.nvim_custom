@@ -599,6 +599,7 @@ return {
       require("telescope").load_extension('harpoon')
     end,
   },
+  -- fast find with highlighting
   -- character search highlighting: t T ; ,
   {
     'rhysd/clever-f.vim',
@@ -609,6 +610,21 @@ return {
       vim.keymap.set('n', ',', '<Plug>(clever-f-repeat-back)')
       vim.keymap.set('v', ',', '<Plug>(clever-f-repeat-back)')
     end,
+  },
+  -- two-word fast search with s S gs gS
+  {
+    'ggandor/lightspeed.nvim',
+    opts = {
+      ignore_case = true,
+      -- turn off f/F/t/T
+      exit_after_idle_msecs = { labeled = nil, unlabeled = 0 }
+    },
+    config = function(_, opts)
+      require('lightspeed').setup(opts)
+    end,
+  },
+  {
+    'tpope/vim-repeat',
   },
   -- install without yarn or npm
   {
