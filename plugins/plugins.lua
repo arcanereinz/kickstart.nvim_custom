@@ -449,6 +449,7 @@ return {
         'clang-format', -- C/C++ formatter
         'codelldb', -- C/C++ (clang) debugger
         'phpactor', -- PHP LSP: brew install composer; brew update; brew cleanup; brew upgrade; [if needed] brew reinstall gd
+        'marksman', -- Markdown LSP
       },
     },
     config = function(_, opts)
