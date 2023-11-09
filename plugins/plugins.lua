@@ -405,10 +405,29 @@ return {
     end
   },
 
-  -- multiple cursor support (ctrl-n)
+  -- multiple cursor support
+  -- -----------------------
+  -- select words with Ctrl-N (like Ctrl-d in Sublime Text/VS Code)
+  -- create cursors vertically with Ctrl-Down/Ctrl-Up
+  -- select one character at a time with Shift-Arrows
+  -- press n/N to get next/previous occurrence
+  -- press [/] to select next/previous cursor
+  -- press q to skip current and get next occurrence
+  -- press Q to remove current cursor/selection
+  -- start insert mode with i,a,I,
+  --
   -- To select all occurrence inside function using visual multi-mode: <c-n> m i {
+  -- gb to multi-select in vscode
   -- @see https://www.youtube.com/watch?v=N-X_zjU5INs
   -- @see https://www.youtube.com/watch?v=p4D8-brdrZo&t=101s
+  --
+  -- multi-cursor support
+  -- start: <C-n> start multicursor and add a virtual cursor + selection on the match
+  -- next+: <C-n> add a new virtual cursor + selection on the next match
+  -- next:  ] go to next match
+  -- skip:  q skip the next match
+  -- prev:  [ go back on previous match
+  -- all:   \\A start multicursor and directly select all matches
   {
     'mg979/vim-visual-multi',
   },
@@ -421,7 +440,6 @@ return {
       { 'P', '<Plug>(YankyPutBefore)', desc = 'Paste before cursor', mode = {'x', 'n'} },
       { 'gp', '<Plug>(YankyGPutAfter)', desc = 'Paste after but leave cursor', mode = {'x', 'n'} },
       { 'gP', '<Plug>(YankyGPutBefore)', desc = 'Paste before but leave cursor', mode = {'x', 'n'} },
-
       { '<M-y>', '<Plug>(YankyCycleForward)', desc = 'Paste from killring', mode = 'n' },
       { '<M-Y>', '<Plug>(YankyCycleBackward)', desc = 'Paste from previous killring', mode = 'n' },
     },
