@@ -601,26 +601,74 @@ return {
   },
   -- fast find with highlighting
   -- character search highlighting: t T ; ,
+  -- {
+  --   'rhysd/clever-f.vim',
+  --   config = function()
+  --     vim.g.clever_f_smart_case = true
+  --     vim.keymap.set('n', ';', '<Plug>(clever-f-repeat-forward)')
+  --     vim.keymap.set('v', ';', '<Plug>(clever-f-repeat-forward)')
+  --     vim.keymap.set('n', ',', '<Plug>(clever-f-repeat-back)')
+  --     vim.keymap.set('v', ',', '<Plug>(clever-f-repeat-back)')
+  --   end,
+  -- },
+  -- one-char fast search f
+  -- {
+  --   'unblevable/quick-scope',
+  -- },
+  -- two-char fast search with s S gs gS
+  -- {
+  --   'ggandor/lightspeed.nvim',
+  --   opts = {
+  --     ignore_case = true,
+  --     -- turn off f/F/t/T
+  --     exit_after_idle_msecs = { labeled = nil, unlabeled = 0 }
+  --   },
+  --   config = function(_, opts)
+  --     require('lightspeed').setup(opts)
+  --   end,
+  -- },
+  -- one/two character fast search
   {
-    'rhysd/clever-f.vim',
-    config = function()
-      vim.g.clever_f_smart_case = true
-      vim.keymap.set('n', ';', '<Plug>(clever-f-repeat-forward)')
-      vim.keymap.set('v', ';', '<Plug>(clever-f-repeat-forward)')
-      vim.keymap.set('n', ',', '<Plug>(clever-f-repeat-back)')
-      vim.keymap.set('v', ',', '<Plug>(clever-f-repeat-back)')
-    end,
-  },
-  -- two-word fast search with s S gs gS
-  {
-    'ggandor/lightspeed.nvim',
+    'phaazon/hop.nvim',
     opts = {
-      ignore_case = true,
-      -- turn off f/F/t/T
-      exit_after_idle_msecs = { labeled = nil, unlabeled = 0 }
+      keys = 'abcdefghiklmnopqrstuvwxyzj',
     },
     config = function(_, opts)
-      require('lightspeed').setup(opts)
+      local hop = require('hop')
+      local directions = require('hop.hint').HintDirection
+
+      -- setup hop
+      hop.setup(opts);
+
+      -- one-char fast search
+      vim.keymap.set('', 'f', function()
+        hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+      end, {remap=true})
+      vim.keymap.set('', 'F', function()
+        hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+      end, {remap=true})
+      vim.keymap.set('', 't', function()
+        hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+      end, {remap=true})
+      vim.keymap.set('', 'T', function()
+        hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+      end, {remap=true})
+
+      -- two-char fast search
+      vim.keymap.set('', 's', function()
+        hop.hint_char2({ direction = directions.AFTER_CURSOR, current_line_only = false })
+      end, {remap=true})
+      vim.keymap.set('', 'S', function()
+        hop.hint_char2({ direction = directions.BEFORE_CURSOR, current_line_only = false })
+      end, {remap=true})
+
+      -- two-char fast search multi-window (@todo wait for update to prevent crashing)
+      -- vim.keymap.set('', 'gs', function()
+      --   hop.hint_char2({ direction = directions.AFTER_CURSOR, current_line_only = false, multi_window = true })
+      -- end, {remap=true})
+      -- vim.keymap.set('', 'gS', function()
+      --   hop.hint_char2({ direction = directions.BEFORE_CURSOR, current_line_only = false, multi_window = true })
+      -- end, {remap=true})
     end,
   },
   {

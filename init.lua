@@ -81,9 +81,9 @@ vim.api.nvim_set_keymap('n', '<Leader>gl', ':Git log --graph --decorate --date-o
 vim.keymap.set("n", "<Leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left>]], { desc = "Replace under word" })
 
 -- keymap for tpope/vim-repeat to fix .
-vim.cmd [[
-  silent! call repeat#set("\<Plug>Lightspeed_;_sx", v:count)
-]]
+-- vim.cmd [[
+--   silent! call repeat#set(":lua vim.g.hop_repeater()", v:count)
+-- ]]
 
 -- <tab> and <c-i> same so remapping <c-i> to <m-o>
 -- also alt+shift works but ctrl+shift does not work so must lowercase o
