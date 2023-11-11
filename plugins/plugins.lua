@@ -627,11 +627,13 @@ return {
   --     require('lightspeed').setup(opts)
   --   end,
   -- },
-  -- one/two character fast search
+  -- two-character fast search
   {
     'phaazon/hop.nvim',
     opts = {
       keys = 'abcdefghiklmnopqrstuvwxyzj',
+      case_insensitive = false,
+      multi_windows = true,
     },
     config = function(_, opts)
       local hop = require('hop')
@@ -641,26 +643,31 @@ return {
       hop.setup(opts);
 
       -- one-char fast search
-      vim.keymap.set('', 'f', function()
-        hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-      end, {remap=true})
-      vim.keymap.set('', 'F', function()
-        hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-      end, {remap=true})
-      vim.keymap.set('', 't', function()
-        hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
-      end, {remap=true})
-      vim.keymap.set('', 'T', function()
-        hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
-      end, {remap=true})
+      -- vim.keymap.set('', 'f', function()
+      --   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+      -- end, {remap=true})
+      -- vim.keymap.set('', 'F', function()
+      --   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+      -- end, {remap=true})
+      -- vim.keymap.set('', 't', function()
+      --   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+      -- end, {remap=true})
+      -- vim.keymap.set('', 'T', function()
+      --   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+      -- end, {remap=true})
 
       -- two-char fast search
       vim.keymap.set('', 's', function()
-        hop.hint_char2({ direction = directions.AFTER_CURSOR, current_line_only = false })
+        hop.hint_char2({ --[[direction = directions.AFTER_CURSOR,]] current_line_only = false })
       end, {remap=true})
       vim.keymap.set('', 'S', function()
         hop.hint_char2({ direction = directions.BEFORE_CURSOR, current_line_only = false })
       end, {remap=true})
+
+      -- pattern search
+      -- vim.keymap.set('', '/', function()
+      --   hop.hint_patterns()
+      -- end, {remap=true})
 
       -- two-char fast search multi-window (@todo wait for update to prevent crashing)
       -- vim.keymap.set('', 'gs', function()
@@ -670,6 +677,34 @@ return {
       --   hop.hint_char2({ direction = directions.BEFORE_CURSOR, current_line_only = false, multi_window = true })
       -- end, {remap=true})
     end,
+  },
+  -- one-char and general quick search
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {
+      modes = {
+        search = {
+          -- when `true`, flash will be activated during regular search by default.
+          -- You can always toggle when searching with `require("flash").toggle()`
+          enabled = true,
+          highlight = { backdrop = true },
+        },
+        char = {
+          -- turn off f F t T one-char search
+          enabled = true,
+        },
+      },
+    },
+    -- stylua: ignore
+    -- keys = {
+    --   { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+    --   { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    --   { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+    --   { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+    --   { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    -- },
   },
   {
     'tpope/vim-repeat',
