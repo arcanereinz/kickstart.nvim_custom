@@ -689,7 +689,7 @@ return {
           -- when `true`, flash will be activated during regular search by default.
           -- You can always toggle when searching with `require("flash").toggle()`
           enabled = true,
-          highlight = { backdrop = true },
+          highlight = { backdrop = false },
         },
         char = {
           -- turn off f F t T one-char search
@@ -715,5 +715,14 @@ return {
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     ft = { 'markdown' },
     build = function() vim.fn['mkdp#util#install']() end,
+  },
+  -- show visable marks
+  {
+    'chentoast/marks.nvim',
+    opts = {
+    },
+    config = function(_, opts)
+      require('marks').setup(opts);
+    end,
   },
 }

@@ -3,7 +3,7 @@
 -- ==================
 -- escape if key not convenient (insert mode)
 vim.api.nvim_set_keymap('i', '<C-g>', '<C-\\><C-n>', { noremap = true, desc = 'Escapse inside terminal' })
--- terminal mode for :terminal or <M-i> or <leaer>tt
+-- terminal mode for :terminal or <M-i> or <leaer>tt or <M-i> or <M-h>
 vim.api.nvim_set_keymap('t', '<C-g>', '<C-\\><C-n>', { noremap = true, desc = 'Escapte inside terminal' })
 
 -- buffers
