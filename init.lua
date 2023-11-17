@@ -66,6 +66,20 @@ vim.keymap.set('n', '<C-s>', '<Plug>MarkdownPreview', { noremap = true, desc = '
 vim.keymap.set('n', '<M-s>', '<Plug>MarkdownPreviewStop', { noremap = true, desc = 'Markdown Stop' })
 vim.keymap.set('n', '<C-p>', '<Plug>MarkdownPreviewToggle', { noremap = true, desc = 'Markdown Toggle' })
 
+-- -- easymotion
+-- vim.g.EasyMotion_smartcase = 1
+-- -- <Leader>f{char} to move to {char}
+-- vim.keymap.set('', '\\f', '<Plug>(easymotion-bd-f)', { noremap = true, desc = '1-char search' })
+-- vim.keymap.set('n', '\\f', '<Plug>(easymotion-overwin-f)', { noremap = true, desc = '1-char window-search' })
+-- -- " s{char}{char} to move to {char}{char}
+-- vim.keymap.set('n', '\\s', '<Plug>(easymotion-s2)', { noremap = true, desc = '2-char search' })
+-- -- " Move to line
+-- vim.keymap.set('', '\\l', '<Plug>(easymotion-bd-jk)', { noremap = true, desc = 'line search' })
+-- vim.keymap.set('n', '\\l', '<Plug>(easymotion-overwin-line)', { noremap = true, desc = 'line window-search' })
+-- -- " Move to word
+-- vim.keymap.set('', '\\w', '<Plug>(easymotion-bd-w)', { noremap = true, desc = 'word search' })
+-- vim.keymap.set('n', '\\w', '<Plug>(easymotion-overwin-w)', { noremap = true, desc = 'word window-search' })
+
 -- show code documentation
 -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, { silent = true, noremap = true })
 -- vim.keymap.set({ 'n', 'i' }, '<C-k>', vim.lsp.buf.signature_help, { silent = true, noremap = true })
@@ -78,7 +92,7 @@ vim.api.nvim_set_keymap('n', '<Leader>gl', ':Git log --graph --decorate --date-o
 -- Replace word under cursor across entire buffer
 -- source: https://www.youtube.com/watch?v=N-X_zjU5INs
 -- source: https://github.com/exosyphon/nvim/blob/43dc5cd2a903671e711f7f58ef070d1641c0b8b6/lua/exosyphon/remaps.lua#L47
-vim.keymap.set("n", "<Leader>ss", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left>]], { desc = "Replace under word" })
+vim.keymap.set('n', '<Leader>ss', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gIc<Left><Left><Left>]], { desc = 'Replace under word' })
 
 -- keymap for tpope/vim-repeat to fix .
 -- vim.cmd [[
