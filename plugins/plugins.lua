@@ -750,6 +750,9 @@ return {
       vim.keymap.set('', '\\w', '<Plug>(easymotion-bd-w)', { noremap = true, desc = 'word search' })
       vim.keymap.set('n', '\\w', '<Plug>(easymotion-overwin-w)', { noremap = true, desc = 'word window-search' })
 
+      -- " Move to line forward/backwards
+      vim.keymap.set('', '\\j', '<Plug>(easymotion-j)', { noremap = true, desc = 'line forward' })
+      vim.keymap.set('', '\\k', '<Plug>(easymotion-k)', { noremap = true, desc = 'line backward' })
     end,
   },
   {
