@@ -1,6 +1,12 @@
 -- You can add your own plugins here or in other files in this directory!
 --  I promise not to create any merge conflicts in this directory :)
---
+
+-- sneak global must be set prior to install
+-- case insensitive
+vim.g['sneak#use_ic_scs'] = 1
+-- enable jump labels
+vim.g['sneak#label'] = 1
+
 -- See the kickstart.nvim README for more information
 return {
   -- @override: disable due to incompatibility with vimr
@@ -621,94 +627,130 @@ return {
   --   opts = {
   --     ignore_case = true,
   --     -- turn off f/F/t/T
-  --     exit_after_idle_msecs = { labeled = nil, unlabeled = 0 }
+  --     exit_after_idle_msecs = { labeled = nil, unlabeled = nil },
   --   },
   --   config = function(_, opts)
   --     require('lightspeed').setup(opts)
   --   end,
   -- },
   -- two-character fast search
+  -- {
+  --   'phaazon/hop.nvim',
+  --   opts = {
+  --     keys = 'abcdefghiklmnopqrstuvwxyzj',
+  --     case_insensitive = false,
+  --     multi_windows = true,
+  --   },
+  --   config = function(_, opts)
+  --     local hop = require('hop')
+  --     local directions = require('hop.hint').HintDirection
+  --
+  --     -- setup hop
+  --     hop.setup(opts);
+  --
+  --     -- one-char fast search
+  --     -- vim.keymap.set('', 'f', function()
+  --     --   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+  --     -- end, {remap=true})
+  --     -- vim.keymap.set('', 'F', function()
+  --     --   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+  --     -- end, {remap=true})
+  --     -- vim.keymap.set('', 't', function()
+  --     --   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+  --     -- end, {remap=true})
+  --     -- vim.keymap.set('', 'T', function()
+  --     --   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+  --     -- end, {remap=true})
+  --
+  --     -- two-char fast search
+  --     vim.keymap.set('', 's', function()
+  --       hop.hint_char2({ --[[direction = directions.AFTER_CURSOR,]] current_line_only = false })
+  --     end, {remap=true})
+  --     vim.keymap.set('', 'S', function()
+  --       hop.hint_char2({ direction = directions.BEFORE_CURSOR, current_line_only = false })
+  --     end, {remap=true})
+  --
+  --     -- keymap for tpope/vim-repeat to fix .
+  --     -- vim.cmd [[silent! call repeat#set(":lua vim.g.hop_repeater()", v:count)]]
+  --
+  --     -- pattern search
+  --     -- vim.keymap.set('', '/', function()
+  --     --   hop.hint_patterns()
+  --     -- end, {remap=true})
+  --
+  --     -- two-char fast search multi-window (@todo wait for update to prevent crashing)
+  --     -- vim.keymap.set('', 'gs', function()
+  --     --   hop.hint_char2({ direction = directions.AFTER_CURSOR, current_line_only = false, multi_window = true })
+  --     -- end, {remap=true})
+  --     -- vim.keymap.set('', 'gS', function()
+  --     --   hop.hint_char2({ direction = directions.BEFORE_CURSOR, current_line_only = false, multi_window = true })
+  --     -- end, {remap=true})
+  --   end,
+  -- },
+  -- -- one-char and general quick search
+  -- {
+  --   "folke/flash.nvim",
+  --   event = "VeryLazy",
+  --   ---@type Flash.Config
+  --   opts = {
+  --     highlight = {
+  --       backdrop = false
+  --     },
+  --     modes = {
+  --       search = {
+  --         -- when `true`, flash will be activated during regular search by default.
+  --         -- You can always toggle when searching with `require("flash").toggle()`
+  --         enabled = false,
+  --         highlight = { backdrop = false },
+  --       },
+  --       char = {
+  --         -- turn off f F t T one-char search
+  --         enabled = true,
+  --         highlight = { backdrop = false },
+  --       },
+  --     },
+  --   },
+  --   -- stylua: ignore
+  --   -- keys = {
+  --   --   { "<leader>s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+  --   --   { "<leader>S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+  --   --   { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+  --   --   { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+  --   --   { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+  --   -- },
+  -- },
   {
-    'phaazon/hop.nvim',
-    opts = {
-      keys = 'abcdefghiklmnopqrstuvwxyzj',
-      case_insensitive = false,
-      multi_windows = true,
-    },
-    config = function(_, opts)
-      local hop = require('hop')
-      local directions = require('hop.hint').HintDirection
-
-      -- setup hop
-      hop.setup(opts);
-
-      -- one-char fast search
-      -- vim.keymap.set('', 'f', function()
-      --   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
-      -- end, {remap=true})
-      -- vim.keymap.set('', 'F', function()
-      --   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
-      -- end, {remap=true})
-      -- vim.keymap.set('', 't', function()
-      --   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
-      -- end, {remap=true})
-      -- vim.keymap.set('', 'T', function()
-      --   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
-      -- end, {remap=true})
-
-      -- two-char fast search
-      vim.keymap.set('', 's', function()
-        hop.hint_char2({ --[[direction = directions.AFTER_CURSOR,]] current_line_only = false })
-      end, {remap=true})
-      vim.keymap.set('', 'S', function()
-        hop.hint_char2({ direction = directions.BEFORE_CURSOR, current_line_only = false })
-      end, {remap=true})
-
-      -- pattern search
-      -- vim.keymap.set('', '/', function()
-      --   hop.hint_patterns()
-      -- end, {remap=true})
-
-      -- two-char fast search multi-window (@todo wait for update to prevent crashing)
-      -- vim.keymap.set('', 'gs', function()
-      --   hop.hint_char2({ direction = directions.AFTER_CURSOR, current_line_only = false, multi_window = true })
-      -- end, {remap=true})
-      -- vim.keymap.set('', 'gS', function()
-      --   hop.hint_char2({ direction = directions.BEFORE_CURSOR, current_line_only = false, multi_window = true })
-      -- end, {remap=true})
+    'justinmk/vim-sneak',
+    config = function()
+      -- NOTE: settings at top of file due to setup
+      vim.keymap.set('', 'f', '<Plug>Sneak_f', { desc = 'to char right' })
+      vim.keymap.set('', 'F', '<Plug>Sneak_F', { desc = 'to char left' })
+      vim.keymap.set('', 't', '<Plug>Sneak_t', { desc = 'til before char right' })
+      vim.keymap.set('', 'T', '<Plug>Sneak_T', { desc = 'til after char left' })
+      vim.keymap.set('', '\\s', '<Plug>Sneak_s', { desc = 'to 2-char right' })
+      vim.keymap.set('', '\\S', '<Plug>Sneak_S', { desc = 'to 1-char left' })
     end,
   },
-  -- one-char and general quick search
   {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    ---@type Flash.Config
-    opts = {
-      highlight = {
-        backdrop = false
-      },
-      modes = {
-        search = {
-          -- when `true`, flash will be activated during regular search by default.
-          -- You can always toggle when searching with `require("flash").toggle()`
-          enabled = false,
-          highlight = { backdrop = false },
-        },
-        char = {
-          -- turn off f F t T one-char search
-          enabled = true,
-          highlight = { backdrop = false },
-        },
-      },
-    },
-    -- stylua: ignore
-    keys = {
-      { "<leader>s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "<leader>S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    },
+    'easymotion/vim-easymotion',
+    config = function()
+      -- set case insensitive
+      vim.g.EasyMotion_smartcase = 1
+
+      -- s{char}{char} to move to {char}{char}
+      vim.keymap.set('', 's', '<Plug>(easymotion-overwin-f2)', { desc = '2-char search' })
+
+      -- <Leader>f{char} to move to {char}
+      vim.keymap.set('', '\\f', '<Plug>(easymotion-bd-f)', { noremap = true, desc = '1-char search' })
+      vim.keymap.set('n', '\\f', '<Plug>(easymotion-overwin-f)', { noremap = true, desc = '1-char window-search' })
+      -- " Move to line
+      vim.keymap.set('', '\\l', '<Plug>(easymotion-bd-jk)', { noremap = true, desc = 'line search' })
+      vim.keymap.set('n', '\\l', '<Plug>(easymotion-overwin-line)', { noremap = true, desc = 'line window-search' })
+      -- " Move to word
+      vim.keymap.set('', '\\w', '<Plug>(easymotion-bd-w)', { noremap = true, desc = 'word search' })
+      vim.keymap.set('n', '\\w', '<Plug>(easymotion-overwin-w)', { noremap = true, desc = 'word window-search' })
+
+    end,
   },
   {
     'tpope/vim-repeat',
